@@ -29,3 +29,6 @@ Rich Presence for Folding@Home using local server
 - **logging**: Whether or not to log info to console
   - `true` Log info
   - `false` Don't log info
+  
+### Contact
+Discord: e g g p l a n t#1337
