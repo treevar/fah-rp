@@ -5,7 +5,7 @@ Rich Presence for Folding@Home using local server
 1. Make sure you have [Node.js](https://nodejs.org/en/download/) installed
 1. Download 
 1. Run `getModules.bat`
-1. Edit config is necessary 
+1. Edit config if necessary 
 1. Run `start.bat` (Folding@Home must be running)
 
 ## Editing config
