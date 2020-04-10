@@ -18,6 +18,7 @@ Rich Presence for Folding@Home using local server
   - `true` Cycle between modes
   - `false` Don't cycle modes
 - **cycles**: Number of cycles to wait between switching modes where each cycle is one time through the loop
+- **cycleModes**: Array of modes to cycle through, see mode for valid modes
 - **primary**: The primary slot to be displayed
   - `CPU` Displays CPU as primary slot
   - `GPU` Displays GPU as primary slot
