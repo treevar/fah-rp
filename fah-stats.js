@@ -1,4 +1,6 @@
-const ax = require("axios")
+const ax = require("axios");
+const cheerio = require("cheerio");
+const fs = require("fs");
 const apiURL = "http://127.0.0.1:7396/api";
 const projects = require("./projects.json");
 
@@ -52,6 +54,31 @@ let user = new User;
 
 let logging = false;
 module.exports.logging = logging;
+
+async function getProjectOnline(projId){
+    let project = {id:projId, type:String};
+    project.type = await ax.get("https://stats.foldingathome.org/project?p=" + projId).then((res) =>{
+        let $ = cheerio.load(res.data);
+        let p = $("p");
+        //console.log(p[0].children[0]);
+        if(p[0].children[0].data == "\n      Enter the project number:\n      "){ return "unspecified"; }//Project page not made
+        else if(p[0].children[0].data == "Cause: unspecified"){
+            if(p[1].children[0].children){//Some of the covid pages dont have cause set
+                if(p[1].children[0].children[0].data == "CORONAVIRUS PROJECT"){ return "covid-19"; }
+                else{ return "unspecified"; }
+            }
+            else if(p[1].children[0].data.startsWith("SARS-CoV-2")){ return "covid-19"; }
+            else{ return "unspecified"; }
+        }
+        else{ return p[0].children[0].data.substr(7); }
+    }).catch(err => console.log("Error: " + projId));
+    projects.push(project);
+    await fs.writeFileSync("projects.json", JSON.stringify(projects), (err, fd) => {  
+        if(err){ console.log(err); }
+        else{ console.log("Saved Projects"); }
+    });
+    return project;
+}
 
 function log(d){ 
     if(logging){ console.log(d); } 
@@ -111,7 +138,7 @@ async function updateSlots(trys = 0){
             return;
         }   
         var slots = [];
-        res.data.forEach((s) => {
+        res.data.forEach(async(s) => {
             let slot = new Slot;
             if(s.description.startsWith("cpu")){
                 slot.type = "CPU";
@@ -123,8 +150,10 @@ async function updateSlots(trys = 0){
             }
             slot.state = s.status;
             if(s.reason != "finished"){
+                let p = getProject(s.project);
+                if(p == undefined){ p = await getProjectOnline(id); }
                 slot.percent = s.percentdone;
-                slot.project = getProject(s.project);
+                slot.project = p;
             }
             log("Got Slot: " + slot.type + "(" + slot.count + "): " + slot.percent + " - " + "{id:" + slot.project.id + ", type:" + slot.project.type + "}");
             slots.push(slot);
