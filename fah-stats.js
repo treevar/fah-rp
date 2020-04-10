@@ -191,3 +191,6 @@ function getSlot(id){
     });
 }
 module.exports.getSlot = getSlot;
+
+function setLogging(l){ logging = l; }
+module.exports.setLogging = setLogging;

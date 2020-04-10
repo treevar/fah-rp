@@ -164,12 +164,13 @@ config.cycleModes.forEach((m) =>{
 });
 primary.user = config.primary;
 primary.auto = config.autoPrimary;
-f.logging = config.logging;
+f.setLogging(config.logging);
 
 console.log("mode: " + mode);
 console.log("doCycle: " + doCycle);
 console.log("cycles: " + cycles);
 console.log("modes: " + modes);
+console.log("logging: " + f.logging);
 console.log(primary);
 
 //Command line args
