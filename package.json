@@ -1,0 +1,16 @@
+{
+  "name": "fah-rp",
+  "version": "1.0.0",
+  "description": "Rich Presence for folding@home",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "eggplant",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "discord-rich-presence": "0.0.8",
+    "fs": "0.0.1-security"
+  }
+}

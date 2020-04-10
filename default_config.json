@@ -1,0 +1,9 @@
+{
+    "mode": "name",
+    "doCycle": false,
+    "cycles": 5,
+    "cycleModes": [],
+    "primary" : "CPU",
+    "autoPrimary": true,
+    "logging": false
+}
