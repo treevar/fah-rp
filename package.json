@@ -10,6 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
-    "discord-rich-presence": "0.0.8",
+    "discord-rich-presence": "0.0.8"
   }
 }
