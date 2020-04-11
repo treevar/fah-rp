@@ -1,5 +1,5 @@
 # fah-rp
-Rich Presence for Folding@Home using local server
+Rich Presence for [Folding@Home](https://foldingathome.org) using local server
 
 ## Getting started
 1. Make sure you have [Node.js](https://nodejs.org/en/download/) installed
