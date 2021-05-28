@@ -8,7 +8,7 @@ function getSlotProj(slot){
             resolve("Folding@Home");
         }
         //if(slot.state == "PAUSED"){ resolve("Paused"); }
-        else if(slot.project.type == "unspecified"){
+        else if(slot.project.cause == "unspecified"){
             if(slot.project.id == 0){
                 resolve("Waiting for WU");
             }
@@ -16,7 +16,7 @@ function getSlotProj(slot){
                 resolve("Project " + slot.project.id);
             }
         }
-        else{ resolve(slot.project.type[0].toUpperCase() + slot.project.type.slice(1)); }
+        else{ resolve(slot.project.cause[0].toUpperCase() + slot.project.cause.slice(1)); }
     });
 }
 
@@ -31,7 +31,7 @@ async function getSlotText(slot){
 function getSlotKey(slot){
     return new Promise((resolve, reject) =>{
         if(slot == undefined){ resolve("logo"); }
-        else{ resolve(slot.project.type); }
+        else{ resolve(slot.project.cause); }
     });
 }
 
@@ -50,6 +50,7 @@ function cycleMode(){
             if(++mode == modes.length){
                 mode = 0;
             }
+            f.log("Set mode to " + modes[mode]);
         }
         resolve(modes[mode]);
     });
@@ -76,9 +77,9 @@ function strToMode(str){
 }
 
 let main = async() =>{
-    await f.init();
+    await f.init().then(f.log("Initialized"));
     while(true){
-        let user = await f.updateGetUser();
+        let user = await f.updateUser();
         let secSlot;
         if(primary.user == "CPU"){
             primary.slot = await f.getSlot("CPU");
@@ -166,12 +167,12 @@ primary.user = config.primary;
 primary.auto = config.autoPrimary;
 f.setLogging(config.logging);
 
-console.log("mode: " + mode);
-console.log("doCycle: " + doCycle);
-console.log("cycles: " + cycles);
-console.log("modes: " + modes);
-console.log("logging: " + f.logging);
-console.log(primary);
+f.log("Config:")
+f.log(" mode: " + mode);
+f.log(" doCycle: " + doCycle);
+f.log(" cycles: " + cycles);
+f.log(" modes: " + modes);
+f.log(" logging: " + f.getLogging());
 
 //Command line args
 /*let args = process.argv.slice(2); 
@@ -202,3 +203,10 @@ if(args){
     });
 }*/
 main();
+
+/*async function gree(){
+    await f.init();
+    await f.updateUser();       
+}
+f.setLogging(false);
+gree();*/

@@ -5,5 +5,5 @@
     "cycleModes": [],
     "primary" : "CPU",
     "autoPrimary": true,
-    "logging": false
+    "logging": true
 }

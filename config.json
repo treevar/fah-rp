@@ -2,8 +2,8 @@
     "mode": "name",
     "doCycle": false,
     "cycles": 5,
-    "cycleModes": ["name", "team"],
+    "cycleModes": [],
     "primary" : "CPU",
-    "autoPrimary": false,
+    "autoPrimary": true,
     "logging": true
 }
