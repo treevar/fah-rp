@@ -11,7 +11,7 @@ Rich Presence for [Folding@Home](https://foldingathome.org) using local server
 ## Editing config
 
 - **mode**: The "mode" you want it to run with<br>
-  - `name` Displays your user name and total pooints
+  - `name` Displays your user name and total points
   - `team` Displays your team name and points contributed
   - `slots` Displays what your slots are folding
 - **doCycle**: Whether or not to cycle between modes
@@ -31,4 +31,4 @@ Rich Presence for [Folding@Home](https://foldingathome.org) using local server
   - `false` Don't log info
   
 ### Contact
-Discord: e g g p l a n t#1337
+Discord: e g g p l a n t#9174
