@@ -123,7 +123,9 @@ async function updateSlots(){
             let s = data[i];
             let c = s.description[0] == 'c' ? Number(s.description.split(':')[1]) : 1;
             //log(s.project);
-            user.slots.push({count: c, percent: s.percentdone, project: {id: s.project, cause: ""}, state: s.status, type: s.description.substring(0, 3).toUpperCase()});
+            let pid = s.project;
+            if(pid == undefined){ pid = 0; }
+            user.slots.push({count: c, percent: s.percentdone, project: {id: pid, cause: ""}, state: s.status, type: s.description.substring(0, 3).toUpperCase()});
         }
     }).catch((err) => handleErr("updateSlots(): " + err, 1));
     for(let i = 0; i < user.slots.length; i++){
