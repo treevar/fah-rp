@@ -41,6 +41,8 @@ let user = new User;
 let logging = true;
 //module.exports.logging = logging;
 
+let projects = [{id:0, cause:"unspecified"}];
+
 function log(d){ 
     if(logging){ console.log(d); } 
 }
@@ -110,6 +112,14 @@ async function updateUserInfo(){
     }).catch((err) => handleErr("updateUserInfo(): " + err, 1));
 }
 
+function getProjectCauseLocal(id){
+    for(let i = 0; i < projects.length; i++){
+        let p = projects[i];
+        if(p.id == id){ return p.cause; }
+    }
+    return "online";
+}
+
 async function updateSlots(){
     user.slots = [];
     await ax.get(localApi + "/slots", {
@@ -130,17 +140,16 @@ async function updateSlots(){
     }).catch((err) => handleErr("updateSlots(): " + err, 1));
     for(let i = 0; i < user.slots.length; i++){
         let s = user.slots[i];
-        //404s if project is zero
-        if(s.project.id != 0){
+        s.project.cause = getProjectCauseLocal(s.project.id);
+        if(s.project.cause == "online"){
             await ax.get(fahApi + "/project/" + s.project.id).then((res) => {
                 s.project.cause = res.data.cause;
+                projects.push({id:s.project.id, cause:s.project.cause});
+                log("Got project " + s.project.id + " cause: " + s.project.cause);
             }).catch((err) => {
                 handleErr("updateSlots(): (Project -> " + s.project.id + ") " + err, 0);
                 s.project.cause = "unspecified";
             });
-        }
-        else{
-            s.project.cause = "unspecified";
         }
         log("Updated Slot " + i);
     }
