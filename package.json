@@ -9,7 +9,7 @@
   "author": "eggplant",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "discord-rich-presence": "0.0.8"
   }
 }
