@@ -29,6 +29,4 @@ Rich Presence for [Folding@Home](https://foldingathome.org)
 - **logging**: Whether or not to log info to console
   - `true` Log info
   - `false` Don't log info
-  
-### Contact
-Discord: e g g p l a n t#9174
+
